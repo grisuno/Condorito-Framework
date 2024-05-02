@@ -57,49 +57,49 @@ server.listen(port, () => {
 });
 
 ```
-#Features
+## Features
 Channels: Manage communication channels for WebSocket connections.
 Presence: Track users' presence in the application.
 Pub/Sub Messaging: Implement publish/subscribe messaging patterns.
 Elixir-Like Syntax: Define routes and resources using an Elixir-like syntax.
 Automatic Code Reloading: Automatically reload code when changes are detected.
 
-#Documentation
+## Documentation
 Condorito Framework provides comprehensive documentation within the code itself. Here's a brief overview of the main components and their usage:
 
-1. Condorito Class
+- ** 1. Condorito Class
 The Condorito class is the entry point of the framework.
 It initializes various components like channels, presence tracking, pub/sub messaging, routing syntax, and automatic code reloading.
 Usage: Create an instance of Condorito and access its properties to configure and manage your application.
-2. Channels
+- ** 2. Channels
 The Channels class manages communication channels for WebSocket connections.
 It allows joining, leaving, and broadcasting messages to specific channels.
 Usage: Access the channels property of Condorito to interact with the channels system.
-3. Presence
+- ** 3. Presence
 The Presence class tracks users' presence in the application.
 It provides methods for joining and leaving presence channels, as well as retrieving presence information.
 Usage: Access the presence property of Condorito to interact with the presence system.
-4. Pub/Sub Messaging
+- ** 4. Pub/Sub Messaging
 The PubSub class implements a publish/subscribe messaging pattern.
 It allows subscribing to topics and publishing messages to those topics.
 Usage: Access the pubSub property of Condorito to interact with the pub/sub messaging system.
-5. Elixir-Like Syntax
+- ** 5. Elixir-Like Syntax
 The ElixirLikeSyntax class provides a syntax similar to Elixir for defining routes and resources.
 It supports HTTP methods like GET, POST, PUT, DELETE, PATCH, HEAD, and OPTIONS.
 Usage: Access the elixirLikeSyntax property of Condorito to define routes and resources using the provided syntax.
-6. Automatic Code Reloading
+- ** 6. Automatic Code Reloading
 The AutomaticCodeReloading class automatically reloads code when changes are detected.
 It uses file watching to detect changes and reloads the affected modules.
 Usage: Access the automaticCodeReloading property of Condorito to configure automatic code reloading.
-7. LiveView and LiveViewManager
+- ** 7. LiveView and LiveViewManager
 The LiveView class provides a foundation for building real-time views.
 It sets up WebSocket servers and handles client connections.
 The LiveViewManager class manages multiple live views in the application.
 Usage: Extend the LiveView class to create custom live views and manage them using LiveViewManager.
 
 
-#Contribución
+## Contribución
 ¡Las contribuciones son bienvenidas! Si encuentras algún problema o tienes alguna sugerencia, no dudes en abrir un problema o enviar un pull request.
 
-#Licencia
-Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo LICENSE para obtener más detalles.
+## Licencia
+GNU GPL v 3.0
