@@ -19,7 +19,10 @@ Para utilizar Condorito Framework, clona este repositorio en tu máquina local:
 git clone https://github.com/grisuno/Condorito-Framework.git
 ```
 Luego, puedes utilizar los archivos directamente en tu proyecto.
-
+```bash
+cd Condorito-Framework
+npm install
+```
 Uso
 Aquí tienes un ejemplo básico de cómo puedes utilizar Condorito Framework en tu aplicación:
 
