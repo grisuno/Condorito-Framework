@@ -141,7 +141,7 @@
     audioPlayer.play();
   }
 
-  ws = new WebSocket('ws://localhost:3000');
+  ws = new WebSocket('ws://condorito.onrender.com:3000');
 
   ws.onmessage = (event) => {
     const fileName = JSON.parse(event.data).fileName;
