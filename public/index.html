@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Red Social</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Estilos personalizados */
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="#">Red Social</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Perfil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Configuración</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Cerrar sesión</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Contenido principal -->
+<div class="container mt-4">
+  <h1>Bienvenido a Red Social</h1>
+  <p>Aquí puedes compartir tus momentos y conectar con amigos.</p>
+  <!-- Contenido principal de la red social -->
+</div>
+
+<!-- Grabador de audio -->
+<div class="container">
+  <h1 class="mt-4">Grabador de Audio</h1>
+  <div class="mb-3">
+    <button id="startRecordButton" class="btn btn-primary">Comenzar Grabación</button>
+    <button id="stopRecordButton" class="btn btn-danger">Detener Grabación</button>
+  </div>
+  <audio id="audioPlayer" controls class="mb-3"></audio>
+  <h2>Grabaciones</h2>
+  <ul id="audioList" class="list-group"></ul>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-light py-3">
+  <div class="container text-center">
+    <p>&copy; 2024 Red Social. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<!-- Bootstrap JS y jQuery (opcional) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Script del grabador de audio -->
+<script>
+  let recorder;
+  const startRecordButton = document.getElementById('startRecordButton');
+  const stopRecordButton = document.getElementById('stopRecordButton');
+  const audioPlayer = document.getElementById('audioPlayer');
+  const audioList = document.getElementById('audioList');
+  let ws;
+
+  startRecordButton.addEventListener('click', async () => {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    recorder = new MediaRecorder(stream);
+    const chunks = [];
+
+    recorder.ondataavailable = (e) => {
+      chunks.push(e.data);
+    };
+
+    recorder.onstop = () => {
+      const blob = new Blob(chunks, { type: 'audio/wav' });
+      const formData = new FormData();
+      formData.append('audio', blob);
+
+      fetch('/upload-audio', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(message => console.log(message))
+      .catch(error => console.error('Error al subir el archivo de audio:', error));
+    };
+
+    recorder.start();
+  });
+
+  window.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const response = await fetch('/audios');
+      if (!response.ok) {
+        throw new Error('No se pudo obtener la lista de audios.');
+      }
+      const listaAudios = await response.json();
+      
+      // Limpiar la lista de audios antes de agregar nuevos elementos
+      audioList.innerHTML = '';
+
+      // Iterar sobre la lista de audios y crear elementos <li> para cada audio
+      listaAudios.forEach((audio, index) => {
+        const audioItem = document.createElement('li');
+        const audioId = audio.split('.')[0]; // Tomar el nombre de archivo sin extensión como ID
+        audioItem.textContent = audioId; // Mostrar el ID como texto del elemento
+        audioItem.id = `audio_${audioId}`; // Establecer el ID del elemento <li>
+        audioItem.classList.add('list-group-item', 'list-group-item-action');
+        audioItem.addEventListener('click', () => {
+          playAudio(audio);
+        });
+        audioList.appendChild(audioItem);
+      });
+    } catch (error) {
+      console.error('Error al cargar la lista de audios:', error);
+    }
+  });
+
+  stopRecordButton.addEventListener('click', () => {
+    recorder.stop();
+  });
+
+  function playAudio(fileName) {
+    const audioUrl = `./audios/${fileName}`;
+    audioPlayer.src = audioUrl;
+    audioPlayer.play();
+  }
+
+  ws = new WebSocket('ws://192.168.1.92:3000');
+
+  ws.onmessage = (event) => {
+    const fileName = JSON.parse(event.data).fileName;
+    const audioItem = document.createElement('li');
+    const audioId = `audio_${fileName}`;
+    const audioData = event.data; // Los datos del archivo de audio recibidos del servidor
+    const audioBlob = new Blob([audioData], { type: 'audio/wav' });
+    const audioUrl = URL.createObjectURL(audioBlob);
+    audioItem.textContent = `Audio ${fileName}`;
+    audioItem.id = audioId; // Agregar el ID al elemento <li>
+    audioItem.classList.add('list-group-item', 'list-group-item-action');
+    audioItem.addEventListener('click', () => {
+      playAudio(fileName);
+    });
+    audioList.appendChild(audioItem);
+  };
+</script>
+
+</body>
+</html>
