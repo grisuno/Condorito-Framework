@@ -35,5 +35,5 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "condorito"
-          entrypoint: "main.ts"
+          entrypoint: "app.js"
           root: "."
