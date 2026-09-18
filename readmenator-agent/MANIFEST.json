@@ -1,0 +1,22 @@
+{
+  "tool": "readmenator",
+  "generated_at": "2026-09-18T07:16:06Z",
+  "project_root": "/tmp/push_Condorito-Framework_20260918_033829",
+  "files": 3,
+  "symbols": 16,
+  "imports": 226,
+  "resolved_imports": 1,
+  "security_findings": 0,
+  "languages": {
+    "js": 3
+  },
+  "entrypoints": [],
+  "start_here": "INDEX.md",
+  "workflow": [
+    "ls *.md readmenator-*/  # orient: docs first, ignore build noise",
+    "grep -n '<keyword>' INDEX.md",
+    "cat KB_<subsystem>.md",
+    "grep -n '<file>' ARCHITECTURE.md SYMBOLS.md"
+  ],
+  "regenerate": "readmenator . --rebuild"
+}
