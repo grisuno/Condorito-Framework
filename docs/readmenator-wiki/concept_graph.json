@@ -1,0 +1,80 @@
+{
+  "concepts": [
+    {
+      "name": "view",
+      "files": [
+        "Condorito.js",
+        "app.js",
+        "app_example.js"
+      ],
+      "mentions": 5,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "live",
+      "files": [
+        "Condorito.js",
+        "app.js",
+        "app_example.js"
+      ],
+      "mentions": 4,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "app",
+      "files": [
+        "app.js",
+        "app_example.js"
+      ],
+      "mentions": 5,
+      "confidence": "EXTRACTED"
+    }
+  ],
+  "relations": [
+    {
+      "source": "app",
+      "target": "live",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "app_example.js->Condorito.js"
+      ]
+    },
+    {
+      "source": "app",
+      "target": "view",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "app_example.js->Condorito.js"
+      ]
+    },
+    {
+      "source": "live",
+      "target": "view",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "app_example.js->Condorito.js"
+      ]
+    },
+    {
+      "source": "view",
+      "target": "live",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "app_example.js->Condorito.js"
+      ]
+    }
+  ],
+  "dialectic": [
+    "Thesis: `app` centralizes 2 files; Antithesis: `live` pulls 3 files with 2 shared (Jaccard 0.67); Synthesis: should they merge, split by layer, or keep `depends_on` explicit?",
+    "Thesis: `app` centralizes 2 files; Antithesis: `view` pulls 3 files with 2 shared (Jaccard 0.67); Synthesis: should they merge, split by layer, or keep `depends_on` explicit?",
+    "Thesis: `live` centralizes 3 files; Antithesis: `view` pulls 3 files with 3 shared (Jaccard 1.00); Synthesis: should they merge, split by layer, or keep `depends_on` explicit?"
+  ]
+}
