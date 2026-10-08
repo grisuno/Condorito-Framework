@@ -12,7 +12,7 @@
 **Total Files Parsed:** 3 | **Total Symbols Extracted:** 16 | **Total Imports:** 17
  | **Resolved Imports:** 1
 
-<!-- ranking_model: v1.0 | weights: {ppr:0.45,auth:0.2,test:0.15,doc:0.1,fresh:0.1} | alpha:0.85 | commit:1e0fd0b | date:2026-07-18 -->
+<!-- ranking_model: v1.0 | weights: {ppr:0.45,auth:0.2,test:0.15,doc:0.1,fresh:0.1} | alpha:0.85 | commit:05a4468 | date:2026-07-18 -->
 
 
 ## Table of Contents
@@ -26,13 +26,12 @@
 7. [Hotspot Analysis](#hotspot-analysis)
 8. [Change Impact Analysis](#change-impact-analysis)
 9. [Suggested Linting Rules](#suggested-linting-rules)
-10. [Concept Graph](#concept-graph)
-11. [Orphans](#orphans)
-12. [Query Recipes](#query-recipes)
-13. [Structural Knowledge Map](#structural-knowledge-map)
-14. [UML Class Diagram](#uml-class-diagram)
-15. [Code Property Graph](#code-property-graph)
-16. [Architecture Reference](#architecture-reference)
+10. [Orphans](#orphans)
+11. [Query Recipes](#query-recipes)
+12. [Structural Knowledge Map](#structural-knowledge-map)
+13. [UML Class Diagram](#uml-class-diagram)
+14. [Code Property Graph](#code-property-graph)
+15. [Architecture Reference](#architecture-reference)
     - [JS (3 files)](#js-3-files)
 
 ---
@@ -135,35 +134,6 @@ Files ranked by combined complexity (symbol count) and centrality (connection co
 | `Condorito.js` | 1.000 | 0.978 | 0.987 | 9 | 90 |
 | `app_example.js` | 0.111 | 0.489 | 0.338 | 1 | 45 |
 | `app.js` | 0.667 | 1.000 | 0.867 | 6 | 92 |
-
----
-
-## Concept Graph
-
-Semantic second-brain layer: nouns are concept nodes, verbs are edges. Each noun maps atomically to a file set (EXTRACTED); each verb aggregates structural imports, calls, and inherits into consumes, invokes, extends, depends_on, or bridges (INFERRED).
-
-**3 concepts, 4 relations.**
-
-| Concept | Files | Mentions |
-|---------|-------|----------|
-| `view` | 3 | 5 |
-| `live` | 3 | 4 |
-| `app` | 2 | 5 |
-
-### Verb Edges
-
-| Source | Verb | Target | Strength | Evidence |
-|--------|------|--------|----------|----------|
-| `app` | `depends_on` | `live` | 1.00 | 1 |
-| `app` | `depends_on` | `view` | 1.00 | 1 |
-| `live` | `depends_on` | `view` | 1.00 | 1 |
-| `view` | `depends_on` | `live` | 1.00 | 1 |
-
-### Dialectic Prompts
-
-- Thesis: `app` centralizes 2 files; Antithesis: `live` pulls 3 files with 2 shared (Jaccard 0.67); Synthesis: should they merge, split by layer, or keep `depends_on` explicit?
-- Thesis: `app` centralizes 2 files; Antithesis: `view` pulls 3 files with 2 shared (Jaccard 0.67); Synthesis: should they merge, split by layer, or keep `depends_on` explicit?
-- Thesis: `live` centralizes 3 files; Antithesis: `view` pulls 3 files with 3 shared (Jaccard 1.00); Synthesis: should they merge, split by layer, or keep `depends_on` explicit?
 
 ---
 

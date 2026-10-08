@@ -2,6 +2,7 @@
 
 ## Condorito.js
 - Layer: presentation
+- Doc: Condorito.js
 - Language: js
 - Symbols:
   - `Condorito` (class, line 7)
@@ -28,6 +29,7 @@
 
 ## app_example.js
 - Layer: presentation
+- Doc: app.js
 - Language: js
 - Symbols:
   - `CustomLiveView` (class, line 24)
